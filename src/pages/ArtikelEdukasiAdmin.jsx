@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import NavbarAdmin from "../components/NavbarAdmin";
-import "../styles/Admin.css";
+import "../styles/admin.css";
 import { useNavigate } from "react-router-dom";
 import gambar from "../assets/ilustrasi-hero-admin.png";
 import BuatArtikel from "./BuatArtikel";
