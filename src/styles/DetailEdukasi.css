@@ -1,0 +1,171 @@
+.detail-card-full{
+  background:#eef4ef;
+  border-radius:24px;
+  padding:30px;
+  margin-top:10px;
+}
+
+.title{
+  font-size:30px;
+  font-weight:700;
+  color:#1b5e20;
+}
+
+.detail-date{
+  font-size:13px;
+  color:#6b7280;
+  margin-bottom:20px;
+}
+
+.article-body{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+}
+
+.article-image{
+  display:flex;
+  justify-content:center;
+  margin:25px 0;
+}
+
+.article-image img{
+  width:420px;
+  max-width:100%;
+  border-radius:16px;
+  object-fit:cover;
+}
+
+.article-content{
+  width:100%;
+}
+
+.article-content p{
+  font-size:16px;
+  line-height:2;
+  color:#374151;
+  margin-bottom:16px;
+  text-align:justify;
+}
+
+.article-content p:first-child{
+  font-size:18px;
+  line-height:2.2;
+}
+
+@media (max-width:768px){
+
+  .article-image img{
+    width:100%;
+  }
+
+  .article-content{
+    max-width:100%;
+  }
+}
+
+@media (max-width:768px){
+  .detail-layout{
+    grid-template-columns:1fr;
+  }
+
+  .left-text{
+    max-width:100%;
+  }
+
+  .right-image{
+    justify-content:center;
+    padding-right:0;
+  }
+
+  .right-image img{
+    width:250px;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  margin-top: 3px;
+}
+
+.breadcrumb-parent {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  color: #2e7d32;
+  font-weight: 500;
+  font-size: 13px;
+  padding: 4px 12px 4px 8px;
+  border-radius: 20px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.breadcrumb-parent:hover {
+  background: #c8e6c9;
+  color: #1b5e20;
+}
+
+.breadcrumb-back-icon {
+  font-size: 13px;      
+  line-height: 1;
+  display: inline-block;
+  transform: translateY(-1.6px);  
+}
+
+.breadcrumb-back-label {
+  font-size: 13px;
+}
+
+.breadcrumb-separator {
+  color: #9ca3af;
+  font-size: 16px;
+}
+
+.breadcrumb-current {
+  color: #374151;
+  font-weight: 600;
+  font-size: 14px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-current {
+    max-width: 180px;
+  }
+}
+
+.article-content{
+  width:100%;
+}
+
+.article-content *{
+  max-width:100% !important;
+}
+
+.article-content p{
+  width:100%;
+  text-align:justify !important;
+}
+
+.article-content .ql-align-center{
+  text-align:justify !important;
+}
+
+.article-content .ql-align-right{
+  text-align:justify !important;
+}
+
+.article-content .ql-align-left{
+  text-align:justify !important;
+}
