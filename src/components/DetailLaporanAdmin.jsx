@@ -1,5 +1,5 @@
 import "../styles/DetailLaporanAdmin.css";
-import noImage from "../assets/no-image.jpeg";
+import { getImageUrl } from "../utils/imageUrls";
 import { useState, useEffect } from "react";  
 
 import {
@@ -39,9 +39,6 @@ function DetailLaporanAdmin({ show, onClose, data }) {
       minute: "2-digit",
     });
   };
-
-  const getImageUrl = (img) =>
-  img ? `${import.meta.env.VITE_API_URL}/uploads/${img}` : noImage;
 
   const statusBadge = (status) => {
     if (status === "terkirim") return "badge gray";

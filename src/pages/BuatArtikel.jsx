@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
+import { getImageUrl } from "../utils/imageUrls";
 
 function BuatArtikel({ show, onClose, onSuccess, articleData }) {
   const [title, setTitle] = useState("");
@@ -72,7 +73,7 @@ function BuatArtikel({ show, onClose, onSuccess, articleData }) {
 
       if (articleData.thumbnail) {
         setThumbnailPreview(
-          `${import.meta.env.VITE_API_URL}/uploads/${articleData.thumbnail}`
+          getImageUrl(articleData.thumbnail)
         );
       }
     }

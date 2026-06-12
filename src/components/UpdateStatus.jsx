@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "../styles/updateStatus.css";
+import { getImageUrl } from "../utils/imageUrls";
 
 import {
   MapPin,
@@ -156,11 +157,7 @@ function UpdateStatus({ show, onClose, data, onSuccess }) {
             <div className="update-laporan-card">
 
               <img
-                src={
-                  data.foto
-                    ? `${import.meta.env.VITE_API_URL}/uploads/${data.foto}`
-                    : "/no-image.jpeg"
-                }
+                src={getImageUrl(data.foto)}
                 alt=""
               />
 
@@ -214,7 +211,7 @@ function UpdateStatus({ show, onClose, data, onSuccess }) {
 
                 <div className="update-image-box">
                   <img
-                    src={`${import.meta.env.VITE_API_URL}/uploads/${data.foto}`}
+                    src={getImageUrl(data.foto)}
                     alt="laporan"
                   />
                 </div>
@@ -222,7 +219,7 @@ function UpdateStatus({ show, onClose, data, onSuccess }) {
                 {data.foto_selesai && (
                   <div className="update-image-box">
                     <img
-                      src={`${import.meta.env.VITE_API_URL}/uploads/${data.foto_selesai}`}
+                      src={getImageUrl(data.foto_selesai)}
                       alt="bukti"
                     />
 

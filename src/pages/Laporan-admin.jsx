@@ -5,6 +5,7 @@ import "../styles/admin.css";
 import foto from "../assets/admin.png";
 import DetailLaporanAdmin from "../components/DetailLaporanAdmin"; 
 import UpdateStatus from "../components/UpdateStatus";
+import { getImageUrl } from "../utils/imageUrls";
 
 function LaporanAdmin() {
 
@@ -218,11 +219,7 @@ function LaporanAdmin() {
 
                   <td>
                     <img
-                      src={
-                        item.foto
-                          ? `${import.meta.env.VITE_API_URL}/uploads/${item.foto}`
-                          : "/no-image.jpeg"
-                      }
+                      src={getImageUrl(item.foto)}
                       className="foto-laporan"
                     />
                   </td>

@@ -1,4 +1,4 @@
-import noImage from "../assets/no-image.jpeg";
+import { getImageUrl } from "../utils/imageUrls";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import {
@@ -39,10 +39,6 @@ function DetailLaporanModal({ show, onClose, data, onEdit }) {
   if (!show || !data) return null;
 
   const isOwner = userLogin?.id === data?.id_user;
-
-  const getImageUrl = (foto) => {
-    return foto ? `${import.meta.env.VITE_API_URL}/uploads/${foto}` : noImage;
-  };
 
   const handleDelete = async () => {
     try {

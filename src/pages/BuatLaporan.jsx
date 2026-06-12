@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import cityImage from "../assets/buatlaporan.png";
 import { MapPin } from "lucide-react";
+import { getImageUrl } from "../utils/imageUrls";
 
 function BuatLaporan({ show, onClose, onSuccess, editData }) {
 
@@ -45,10 +46,7 @@ function BuatLaporan({ show, onClose, onSuccess, editData }) {
           longitude: editData.longitude
         });
 
-        setPreview(editData.foto 
-          ? `${import.meta.env.VITE_API_URL}/uploads/${editData.foto}` 
-          : null
-        );
+        setPreview(getImageUrl(editData.foto));
 
       } else {
         setForm({
@@ -280,9 +278,16 @@ function BuatLaporan({ show, onClose, onSuccess, editData }) {
         }, 2000);
 
       } catch (err) {
+
+          console.log("ERROR:", err);
+          console.log("RESPONSE:", err.response);
+          console.log("DATA:", err.response?.data);
+          
         setNotif({
           type: "error",
-          message: "Gagal memproses laporan"
+          message:
+            err.response?.data?.message ||
+            "Gagal memproses laporan"
         });
       } finally {
         setLoading(false);

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/DetailEdukasi.css";
+import { getImageUrl } from "../utils/imageUrls";
 
 function DetailEdukasi() {
   const { slug } = useParams();
@@ -57,7 +58,7 @@ function DetailEdukasi() {
 
             <div className="article-image">
               <img
-                src={`${import.meta.env.VITE_API_URL}/uploads/${data.thumbnail}`}
+                src={getImageUrl(data.thumbnail)}
                 alt={data.title}
               />
             </div>

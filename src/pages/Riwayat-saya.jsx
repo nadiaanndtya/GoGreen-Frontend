@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
-import noImage from "../assets/no-image.jpeg";
+import { getImageUrl } from "../utils/imageUrls";
 import rumput from "../assets/gambar.png";
 import BuatLaporan from "./BuatLaporan";
 import DetailLaporanModal from "../components/DetailLaporanModal";
@@ -37,10 +37,6 @@ function RiwayatSaya() {
     filterStatus === "semua"
       ? laporan
       : laporan.filter((item) => item.status === filterStatus);
-
-  const getImageUrl = (foto) => {
-    return foto ? `${import.meta.env.VITE_API_URL}/uploads/${foto}` : noImage;
-  };
 
   const getLaporanSaya = async () => {
     try {

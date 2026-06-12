@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaBookOpen } from "react-icons/fa"; 
 import "../styles/EdukasiSampah.css";
 import edukasiImg from "../assets/edukasi.png";
+import { getImageUrl } from "../utils/imageUrls";
 
 function EdukasiSampahWarga() {
   const [articles, setArticles] = useState([]);
@@ -108,7 +109,7 @@ function EdukasiSampahWarga() {
                 <div className="article-card" key={item.id}>
 
                   <img
-                    src={`${import.meta.env.VITE_API_URL}/uploads/${item.thumbnail}`}
+                    src={getImageUrl(item.thumbnail)}
                     alt={item.title}
                   />
 

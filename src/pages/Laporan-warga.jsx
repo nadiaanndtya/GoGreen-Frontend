@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
-import noImage from "../assets/no-image.jpeg";
+import { getImageUrl } from "../utils/imageUrls";
 import rumput from "../assets/gambar.png";
 import BuatLaporan from "./BuatLaporan";
 import DetailLaporanModal from "../components/DetailLaporanModal";
@@ -39,12 +39,6 @@ function LaporanWarga() {
     class: "bg-success",
     icon: "bi-check-circle-fill"
   }
-};
-
-const getImageUrl = (foto) => {
-    return foto
-      ? `${import.meta.env.VITE_API_URL}/uploads/${foto}`
-      : noImage;
 };
 
   const getLaporan = async () => {
@@ -250,10 +244,13 @@ const getImageUrl = (foto) => {
 
                 <img
                   src={getImageUrl(item.foto)}
-                  onError={(e) => (e.target.src = noImage)}
                   alt="foto laporan"
                   className="img-fluid rounded mb-3"
-                  style={{ height: "160px", objectFit: "cover", width: "100%" }}
+                  style={{
+                    height: "160px",
+                    objectFit: "cover",
+                    width: "100%"
+                  }}
                 />
 
                 <h6 className="laporan-title">{item.judul}</h6>

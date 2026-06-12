@@ -5,6 +5,7 @@ import "../styles/admin.css";
 import { useNavigate } from "react-router-dom";
 import gambar from "../assets/ilustrasi-hero-admin.png";
 import BuatArtikel from "./BuatArtikel";
+import { getImageUrl } from "../utils/imageUrls";
 
 function ArtikelEdukasi() {
 
@@ -211,11 +212,7 @@ function ArtikelEdukasi() {
             <div className="edukasi-card" key={item.id}>
 
               <img
-                src={
-                  item.thumbnail
-                    ? `${import.meta.env.VITE_API_URL}/uploads/${item.thumbnail}`
-                    : "/no-image.png"
-                }
+                src={getImageUrl(item.thumbnail)}
                 alt="thumb"
               />
 
