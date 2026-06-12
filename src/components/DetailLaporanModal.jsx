@@ -262,6 +262,13 @@ function DetailLaporanModal({ show, onClose, data, onEdit }) {
                       month: "long",
                       year: "numeric",
                     })}
+                    {" • "}
+                    {new Intl.DateTimeFormat("id-ID", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    }).format(new Date(data.tanggal_laporan))}
+                    {" WITA"}
                   </span>
                 </div>
               </div>
