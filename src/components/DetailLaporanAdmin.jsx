@@ -31,7 +31,13 @@ function DetailLaporanAdmin({ show, onClose, data }) {
   if (!show || !data) return null;
 
   const formatTime = (date) => {
-    return new Date(date).toLocaleString("id-ID");
+    return new Date(date).toLocaleString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   const getImageUrl = (img) =>
