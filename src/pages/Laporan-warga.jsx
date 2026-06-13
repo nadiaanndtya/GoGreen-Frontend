@@ -22,6 +22,8 @@ function LaporanWarga() {
   const token = localStorage.getItem("token");
 
   const [editData, setEditData] = useState(null);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [loadingDukungan, setLoadingDukungan] = useState({});
 
   const statusConfig = {
   terkirim: {
@@ -41,8 +43,9 @@ function LaporanWarga() {
   }
 };
 
-  const getLaporan = async () => {
+  const getLaporan = async (isInitial = false) => {
     try {
+      if (isInitial) setInitialLoading(true);
 
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/laporan`, {
         headers: {
@@ -57,15 +60,17 @@ function LaporanWarga() {
 
     } catch (err) {
       console.log(err);
+    } finally {
+      if (isInitial) setInitialLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
-    getLaporan();
-    
+    getLaporan(true); 
+
     const interval = setInterval(() => {
-      getLaporan();
-    }, 2000); 
+      getLaporan(false); 
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [search]);
@@ -89,8 +94,28 @@ function LaporanWarga() {
 
   const toggleDukungan = async (id_laporan) => {
 
-    try {
+    if (loadingDukungan[id_laporan]) return;
 
+    setLoadingDukungan(prev => ({
+      ...prev,
+      [id_laporan]: true
+    }));
+
+    setLaporan((prev) =>
+      prev.map((item) =>
+        item.id_laporan === id_laporan
+          ? {
+              ...item,
+              sudah_dukung: !item.sudah_dukung,
+              total_dukungan: item.sudah_dukung
+                ? Number(item.total_dukungan) - 1
+                : Number(item.total_dukungan) + 1
+            }
+          : item
+      )
+    );
+
+    try {
       await axios.post(
         `${import.meta.env.VITE_API_URL}/api/dukungan`,
         { id_laporan },
@@ -99,13 +124,20 @@ function LaporanWarga() {
         }
       );
 
-      getLaporan();
-
     } catch (err) {
       console.log(err);
-    }
 
-  };
+      getLaporan(true);
+      
+  } finally {
+
+    setLoadingDukungan(prev => ({
+      ...prev,
+      [id_laporan]: false
+    }));
+
+  }
+};
 
   useEffect(() => {
     if (showModal || showDetail) {
@@ -210,6 +242,19 @@ function LaporanWarga() {
 
         <div className="row mt-4">
 
+          {initialLoading && (
+            <div className="text-center mt-4">
+              <div className="spinner-border text-success" />
+              <p>Memuat data laporan...</p>
+            </div>
+          )}
+
+          {!initialLoading && filtered.length === 0 && (
+            <div className="text-center mt-4 text-muted">
+              Tidak ada laporan ditemukan
+            </div>
+          )}
+
           {filtered.map((item) => (
 
             <div className="col-12 col-sm-6 col-lg-3 mb-4" key={item.id_laporan}>
@@ -271,6 +316,7 @@ function LaporanWarga() {
 
                   <button
                     className={`dukung-btn ${item.sudah_dukung ? "active" : ""}`}
+                    disabled={loadingDukungan[item.id_laporan]}
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleDukungan(item.id_laporan);
