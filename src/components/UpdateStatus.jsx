@@ -399,9 +399,21 @@ function UpdateStatus({ show, onClose, data, onSuccess }) {
               onClick={handleSubmit}
               disabled={loading}
             >
-              {status === "selesai"
-                ? "Simpan & Tandai Selesai"
-                : "Simpan"}
+              {loading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                  />
+                  {status === "selesai"
+                    ? "Mengunggah bukti..."
+                    : "Menyimpan..."}
+                </>
+              ) : (
+                status === "selesai"
+                  ? "Simpan & Tandai Selesai"
+                  : "Simpan"
+              )}
             </button>
           )}
 
