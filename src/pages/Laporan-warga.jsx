@@ -66,13 +66,13 @@ function LaporanWarga() {
   }
 
   useEffect(() => {
-    getLaporan(true); 
+    getLaporan(true);
 
-    const interval = setInterval(() => {
-      getLaporan(false); 
-    }, 5000);
+    // const interval = setInterval(() => {
+    //   getLaporan(false);
+    // }, 2000);
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, [search]);
 
   const filtered = laporan
