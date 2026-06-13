@@ -70,7 +70,7 @@ function LaporanWarga() {
 
     const interval = setInterval(() => {
       getLaporan(false); 
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [search]);
