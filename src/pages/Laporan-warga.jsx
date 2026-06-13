@@ -92,52 +92,56 @@ function LaporanWarga() {
       return 0;
     });
 
-  const toggleDukungan = async (id_laporan) => {
+    const toggleDukungan = async (id_laporan) => {
 
-    if (loadingDukungan[id_laporan]) return;
+      if (loadingDukungan[id_laporan]) return;
 
-    setLoadingDukungan(prev => ({
-      ...prev,
-      [id_laporan]: true
-    }));
+      setLoadingDukungan(prev => ({
+        ...prev,
+        [id_laporan]: true
+      }));
 
-    setLaporan((prev) =>
-      prev.map((item) =>
-        item.id_laporan === id_laporan
-          ? {
-              ...item,
-              sudah_dukung: !item.sudah_dukung,
-              total_dukungan: item.sudah_dukung
-                ? Number(item.total_dukungan) - 1
-                : Number(item.total_dukungan) + 1
-            }
-          : item
-      )
-    );
-
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/dukungan`,
-        { id_laporan },
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
+      setLaporan((prev) =>
+        prev.map((item) =>
+          item.id_laporan === id_laporan
+            ? {
+                ...item,
+                sudah_dukung: !item.sudah_dukung,
+                total_dukungan: item.sudah_dukung
+                  ? Number(item.total_dukungan) - 1
+                  : Number(item.total_dukungan) + 1
+              }
+            : item
+        )
       );
 
-    } catch (err) {
-      console.log(err);
+      try {
 
-      getLaporan(true);
-      
-  } finally {
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/api/dukungan`,
+          { id_laporan },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
 
-    setLoadingDukungan(prev => ({
-      ...prev,
-      [id_laporan]: false
-    }));
+      } catch (err) {
 
-  }
-};
+        console.log(err);
+
+        getLaporan(true);
+
+      } finally {
+
+        setLoadingDukungan(prev => ({
+          ...prev,
+          [id_laporan]: false
+        }));
+
+      }
+    };
 
   useEffect(() => {
     if (showModal || showDetail) {
