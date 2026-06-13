@@ -172,6 +172,7 @@ function LaporanAdmin() {
             <select value={kecamatan} onChange={(e)=>setKecamatan(e.target.value)}>
               <option value="semua">Semua Kecamatan</option>
               <option>Soreang</option>
+              <option>Bacukiki</option>
               <option>Bacukiki Barat</option>
               <option>Ujung</option>
             </select>

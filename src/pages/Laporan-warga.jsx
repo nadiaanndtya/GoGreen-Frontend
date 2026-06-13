@@ -74,9 +74,6 @@ function LaporanWarga() {
     .filter((item) =>
       status ? item.status === status : true
     )
-    .filter((item) =>
-      status ? item.status === status : true
-    )
     .sort((a, b) => {
       if (sort === "terbaru") {
         return new Date(b.tanggal_laporan) - new Date(a.tanggal_laporan);

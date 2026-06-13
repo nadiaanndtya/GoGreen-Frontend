@@ -2161,3 +2161,22 @@
 .lokasi-wrapper button{
   margin-bottom:0 !important;
 }
+
+@media (max-width: 768px) {
+  .modern-card:hover {
+    transform: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,.06);
+  }
+
+  .modern-card:hover img,
+  .modern-card:hover .laporan-title,
+  .modern-card:hover .lihat-timeline {
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .modern-card:active {
+    transform: scale(0.98);
+  }
+}

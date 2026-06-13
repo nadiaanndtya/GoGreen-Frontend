@@ -87,7 +87,7 @@
   color:white;
 }
 
-.filter-tabs button:hover{
+.filter-tabs button:not(.active):hover{
   background:#cbd5e1;
 }
 

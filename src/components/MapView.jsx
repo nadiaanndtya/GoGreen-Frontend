@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import axios from "axios";
+import "leaflet/dist/leaflet.css";
 
 function MapView() {
 
@@ -20,7 +21,16 @@ function MapView() {
     const DLH_COORDS = [-3.9884196361122606, 119.6521610943085];
     const TPA_PAREPARE_COORDS = [-3.9766188359154477, 119.66376310938612];
 
-    const dlhMarker = L.marker(DLH_COORDS)
+    const dlhIcon = L.icon({
+      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+    });
+
+    const dlhMarker = L.marker(DLH_COORDS, { icon: dlhIcon })
       .addTo(map)
       .bindPopup("<b>Dinas Lingkungan Hidup Parepare</b>");
 
