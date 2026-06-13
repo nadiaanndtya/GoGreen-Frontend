@@ -50,42 +50,21 @@ function RiwayatSaya() {
   };
 
   const toggleDukungan = async (id_laporan) => {
-
-    setLaporan(prev =>
-      prev.map(item =>
-        item.id_laporan === id_laporan
-          ? {
-              ...item,
-              sudah_dukung: !item.sudah_dukung,
-              total_dukungan: item.sudah_dukung
-                ? Number(item.total_dukungan) - 1
-                : Number(item.total_dukungan) + 1
-            }
-          : item
-      )
-    );
-
     try {
-
       await axios.post(
         `${import.meta.env.VITE_API_URL}/api/dukungan`,
         { id_laporan },
         {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` }
         }
       );
 
-    } catch (err) {
-
-      console.log(err);
-
       getLaporanSaya();
-
+    } catch (err) {
+      console.log(err);
     }
   };
-  
+
   useEffect(() => {
     getLaporanSaya();
   }, []);
