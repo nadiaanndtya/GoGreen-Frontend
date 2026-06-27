@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useQuill } from "react-quilljs";
+import { useRef } from "react";
+import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import { getImageUrl } from "../utils/imageUrls";
 
@@ -22,18 +23,39 @@ function BuatArtikel({ show, onClose, onSuccess, articleData }) {
   const isEdit = !!articleData;
   const token = localStorage.getItem("token");
 
-  const { quill, quillRef } = useQuill({
-    modules: {
-      toolbar: [
-        ["bold", "italic", "underline"],
-        [{ header: [1, 2, 3, false] }],
-        [{ list: "ordered" }, { list: "bullet" }],
-        [{ align: [] }]
-      ]
-    }
-  });
+  const quillRef = useRef(null);
+  const quillInstance = useRef(null);
 
   if (!show) return null;
+
+  useEffect(() => {
+    if (!quillRef.current || quillInstance.current) return;
+
+    quillInstance.current = new Quill(quillRef.current, {
+      theme: "snow",
+      modules: {
+        toolbar: [
+          ["bold", "italic", "underline"],
+          [{ header: [1, 2, 3, false] }],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ align: [] }]
+        ]
+      }
+    });
+
+    quillInstance.current.on("text-change", () => {
+      const html = quillInstance.current.root.innerHTML;
+
+      setContent(html);
+
+      if (errors.content) {
+        setErrors((prev) => ({
+          ...prev,
+          content: ""
+        }));
+      }
+    });
+  }, []);
 
   useEffect(() => {
     fetchCategories();
@@ -47,23 +69,6 @@ function BuatArtikel({ show, onClose, onSuccess, articleData }) {
       console.error(err);
     }
   }
-
-  useEffect(() => {
-    if (quill) {
-      quill.on("text-change", () => {
-        const html = quill.root.innerHTML;
-
-        setContent(html);
-
-        if (errors.content) {
-          setErrors((prev) => ({
-            ...prev,
-            content: ""
-          }));
-        }
-      });
-    }
-  }, [quill, errors]);
 
   useEffect(() => {
     if (articleData) {
@@ -80,10 +85,10 @@ function BuatArtikel({ show, onClose, onSuccess, articleData }) {
   }, [articleData]);
 
   useEffect(() => {
-    if (quill && articleData?.content) {
-      quill.root.innerHTML = articleData.content;
+    if (quillInstance.current && articleData?.content) {
+      quillInstance.current.root.innerHTML = articleData.content;
     }
-  }, [quill, articleData]);
+  }, [articleData]);
 
   function processFile(file) {
     const allowedTypes = [
@@ -206,7 +211,10 @@ function BuatArtikel({ show, onClose, onSuccess, articleData }) {
         setThumbnail(null);
         setThumbnailPreview(null);
 
-        if (quill) quill.setText("");
+        if (quillInstance.current) {
+          quillInstance.current.setText("");
+        }
+        
 
         onClose();
       }, 1500);
